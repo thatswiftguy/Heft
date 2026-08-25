@@ -1,0 +1,6 @@
+App Thinning Size Report for All Variants of MyApp
+
+Variant: MyApp.ipa
+App + On Demand Resources size: 5.4 MB compressed, 13.7 MB uncompressed
+App size: 5.4 MB compressed, 13.7 MB uncompressed
+On Demand Resources size: Zero KB compressed, Zero KB uncompressed

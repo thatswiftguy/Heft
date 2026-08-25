@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "commit": "ddddddd",
+  "fingerprint": {
+    "xcodeBuild": "16C5032a",
+    "sdk": "iphoneos18.2",
+    "deploymentTarget": "17.0",
+    "architectures": [
+      "arm64"
+    ]
+  },
+  "variants": [
+    {
+      "name": "MyApp-iPhone16,2",
+      "downloadBytes": 21400000,
+      "installBytes": 48200000
+    }
+  ],
+  "referenceVariant": "MyApp-iPhone16,2",
+  "entries": [
+    {
+      "id": "MyApp",
+      "path": "MyApp",
+      "category": "executable",
+      "installBytes": 4000000,
+      "downloadBytes": 2000000
+    },
+    {
+      "id": "Frameworks/Lottie.framework/Lottie",
+      "path": "Frameworks/Lottie.framework/Lottie",
+      "category": "framework",
+      "installBytes": 2000000,
+      "downloadBytes": 1000000,
+      "dependency": "lottie-ios"
+    },
+    {
+      "id": "Frameworks/Lottie.framework/Info.plist",
+      "path": "Frameworks/Lottie.framework/Info.plist",
+      "category": "framework",
+      "installBytes": 4000,
+      "downloadBytes": 1200,
+      "dependency": "lottie-ios"
+    },
+    {
+      "id": "Frameworks/Alamofire.framework/Alamofire",
+      "path": "Frameworks/Alamofire.framework/Alamofire",
+      "category": "framework",
+      "installBytes": 1500000,
+      "downloadBytes": 750000,
+      "dependency": "Alamofire"
+    },
+    {
+      "id": "FeatureFlags.json",
+      "path": "FeatureFlags.json",
+      "category": "resource",
+      "installBytes": 10000,
+      "downloadBytes": 3000
+    },
+    {
+      "id": "Assets.car",
+      "path": "Assets.car",
+      "category": "asset",
+      "installBytes": 345000,
+      "downloadBytes": 327750
+    }
+  ],
+  "pins": {
+    "lottie-ios": "4.3.0",
+    "Alamofire": "5.8.0"
+  },
+  "pinLocations": {
+    "lottie-ios": {
+      "file": "Package.resolved",
+      "line": 7,
+      "source": "spm"
+    },
+    "Alamofire": {
+      "file": "Package.resolved",
+      "line": 14,
+      "source": "spm"
+    }
+  },
+  "capabilities": {
+    "assetutil": false,
+    "thinningReport": true,
+    "zipSizes": false,
+    "lockfiles": true
+  }
+}

@@ -1,0 +1,49 @@
+[
+  {
+    "AssetStorageVersion" : "Xcode 16.2 (16C5032a)",
+    "CoreUIVersion" : 964,
+    "Platform" : "ios",
+    "PlatformVersion" : "17.0",
+    "SchemaVersion" : 2,
+    "StorageVersion" : 16
+  },
+  {
+    "AssetType" : "Image",
+    "Appearance" : "UIAppearanceAny",
+    "Idiom" : "universal",
+    "Name" : "hero",
+    "PixelWidth" : 100,
+    "PixelHeight" : 100,
+    "RenditionName" : "hero@2x.png",
+    "Scale" : 2,
+    "SizeOnDisk" : 40000
+  },
+  {
+    "AssetType" : "Image",
+    "Appearance" : "UIAppearanceDark",
+    "Idiom" : "universal",
+    "Name" : "hero",
+    "PixelWidth" : 100,
+    "PixelHeight" : 100,
+    "RenditionName" : "hero@2x.png",
+    "Scale" : 2,
+    "SizeOnDisk" : 38000
+  },
+  {
+    "AssetType" : "Image",
+    "Idiom" : "ipad",
+    "Name" : "hero",
+    "PixelWidth" : 200,
+    "PixelHeight" : 200,
+    "RenditionName" : "hero@2x~ipad.png",
+    "Scale" : 2,
+    "SizeOnDisk" : 90000
+  },
+  {
+    "AssetType" : "Icon Image",
+    "Idiom" : "universal",
+    "Name" : "AppIcon",
+    "Scale" : 3,
+    "SizeOnDisk" : 120000
+  }
+]

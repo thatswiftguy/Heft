@@ -1,0 +1,65 @@
+name: 'heft'
+description: 'Catch iOS app size regressions before they merge'
+author: 'thatswiftguy'
+branding:
+  icon: 'bar-chart-2'
+  color: 'blue'
+
+inputs:
+  archive:
+    description: 'Path to the .xcarchive, .ipa or .app to measure'
+    required: true
+  thinning-report:
+    description: 'Path to App Thinning Size Report.txt. Without it, download sizes are an uncalibrated estimate.'
+    required: false
+  config:
+    description: 'Path to config file'
+    required: false
+    default: '.heft.yml'
+  lockfiles:
+    description: 'Lockfile paths or globs (comma or newline separated). Defaults to discovering them under the working directory.'
+    required: false
+  base-ref:
+    description: 'Branch to compare against. Defaults to the pull request base.'
+    required: false
+  baseline-directory:
+    description: 'Directory holding restored <sha>.json baselines, e.g. from actions/cache'
+    required: false
+  baseline-branch:
+    description: 'Orphan branch holding <sha>.json baselines'
+    required: false
+  manifest-out:
+    description: 'Write this build''s manifest here, for later use as a baseline'
+    required: false
+  comment:
+    description: 'Post a sticky PR comment'
+    required: false
+    default: 'true'
+  annotations:
+    description: 'Emit inline file annotations on lockfile lines that moved'
+    required: false
+    default: 'true'
+  fail:
+    description: 'Exit non-zero when the size budget is exceeded'
+    required: false
+    default: 'true'
+  github-token:
+    description: 'Token used to post the PR comment'
+    required: false
+    default: ${{ github.token }}
+
+outputs:
+  passed:
+    description: 'true | false'
+  download-bytes:
+    description: 'Download size of this build, in bytes'
+  install-bytes:
+    description: 'Install size of this build, in bytes'
+  download-delta:
+    description: 'Change in download size versus the baseline, in bytes'
+  report:
+    description: 'Markdown report body'
+
+runs:
+  using: 'node20'
+  main: 'dist/index.js'

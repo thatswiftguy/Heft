@@ -1,0 +1,49 @@
+name: Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        # The engine is pure data and must pass on Linux. macOS additionally
+        # exercises assetutil, actool, lipo and plutil -- the tests that need
+        # them skip themselves elsewhere.
+        os: [ubuntu-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+
+  dist:
+    # GitHub does not build JavaScript actions. If dist/ drifts from src/ the
+    # action silently runs old code, so this is a required check, not a nicety.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Check dist/ is up to date
+        run: |
+          if ! git diff --quiet --exit-code dist/; then
+            echo "::error::dist/ is out of date. Run 'npm run build' and commit the result."
+            git diff --stat dist/
+            exit 1
+          fi

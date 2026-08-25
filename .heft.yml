@@ -1,0 +1,10 @@
+# heft's own configuration.
+#
+# This repository has no app of its own. Everything under __tests__/fixtures is
+# deliberately synthetic -- hand-written manifests, filler bundles, a malformed
+# size report -- so nothing here is measured in CI except through the
+# self-check workflow, which points at those fixtures using its own config.
+noiseFloor: 8KB
+budget:
+  increase: 100KB
+  increasePercent: 0.5

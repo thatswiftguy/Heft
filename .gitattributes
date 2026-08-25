@@ -1,2 +1,7 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# This fixture exists to prove that a report with CRLF line endings parses.
+# Letting `text=auto` normalise it to LF would silently turn that test into a
+# duplicate of the LF case, and the CRLF path would go untested.
+__tests__/fixtures/thinning/crlf.txt -text

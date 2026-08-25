@@ -1,0 +1,24 @@
+{
+  "originHash" : "b9f1a2c3d4e5f60718293a4b5c6d7e8f",
+  "pins" : [
+    {
+      "identity" : "lottie-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/airbnb/lottie-ios.git",
+      "state" : { "revision" : "bb0f1b6a4a1b3f2e5c6d7e8f9a0b1c2d3e4f5a6b", "version" : "4.4.1" }
+    },
+    {
+      "identity" : "swift-collections",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-collections.git",
+      "state" : { "revision" : "cc0f1b6a4a1b3f2e5c6d7e8f9a0b1c2d3e4f5a6b", "version" : "1.1.0" }
+    },
+    {
+      "identity" : "some-branch-dep",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/example/some-branch-dep.git",
+      "state" : { "branch" : "main", "revision" : "dd0f1b6a4a1b3f2e5c6d7e8f9a0b1c2d3e4f5a6b" }
+    }
+  ],
+  "version" : 3
+}

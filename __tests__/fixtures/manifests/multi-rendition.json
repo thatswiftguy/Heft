@@ -1,0 +1,169 @@
+{
+  "version": 1,
+  "commit": "ggggggg",
+  "fingerprint": {
+    "xcodeBuild": "16C5032a",
+    "sdk": "iphoneos18.2",
+    "deploymentTarget": "17.0",
+    "architectures": [
+      "arm64"
+    ]
+  },
+  "variants": [
+    {
+      "name": "MyApp-iPhone16,2",
+      "downloadBytes": 21400000,
+      "installBytes": 48200000
+    }
+  ],
+  "referenceVariant": "MyApp-iPhone16,2",
+  "entries": [
+    {
+      "id": "MyApp",
+      "path": "MyApp",
+      "category": "executable",
+      "installBytes": 4000000,
+      "downloadBytes": 2000000
+    },
+    {
+      "id": "Frameworks/Lottie.framework/Lottie",
+      "path": "Frameworks/Lottie.framework/Lottie",
+      "category": "framework",
+      "installBytes": 2000000,
+      "downloadBytes": 1000000,
+      "dependency": "lottie-ios"
+    },
+    {
+      "id": "Frameworks/Lottie.framework/Info.plist",
+      "path": "Frameworks/Lottie.framework/Info.plist",
+      "category": "framework",
+      "installBytes": 4000,
+      "downloadBytes": 1200,
+      "dependency": "lottie-ios"
+    },
+    {
+      "id": "Frameworks/Alamofire.framework/Alamofire",
+      "path": "Frameworks/Alamofire.framework/Alamofire",
+      "category": "framework",
+      "installBytes": 1500000,
+      "downloadBytes": 750000,
+      "dependency": "Alamofire"
+    },
+    {
+      "id": "Assets.car#hero/3x/universal/",
+      "path": "Assets.car",
+      "category": "asset",
+      "installBytes": 300000,
+      "downloadBytes": 285000,
+      "rendition": {
+        "name": "hero",
+        "scale": 3,
+        "idiom": "universal",
+        "kind": "Image"
+      }
+    },
+    {
+      "id": "Assets.car#icon/2x/universal/",
+      "path": "Assets.car",
+      "category": "asset",
+      "installBytes": 20000,
+      "downloadBytes": 19000,
+      "rendition": {
+        "name": "icon",
+        "scale": 2,
+        "idiom": "universal",
+        "kind": "Image"
+      }
+    },
+    {
+      "id": "Assets.car#(catalog overhead)",
+      "path": "Assets.car",
+      "category": "asset",
+      "installBytes": 25000,
+      "downloadBytes": 23750,
+      "rendition": {
+        "name": "(catalog overhead)"
+      }
+    },
+    {
+      "id": "FeatureFlags.json",
+      "path": "FeatureFlags.json",
+      "category": "resource",
+      "installBytes": 10000,
+      "downloadBytes": 3000
+    },
+    {
+      "id": "Assets.car#illustration/1x/universal/",
+      "path": "Assets.car",
+      "category": "asset",
+      "installBytes": 78000,
+      "downloadBytes": 74000,
+      "rendition": {
+        "name": "illustration",
+        "scale": 1,
+        "idiom": "universal",
+        "kind": "Image"
+      }
+    },
+    {
+      "id": "Assets.car#illustration/2x/universal/",
+      "path": "Assets.car",
+      "category": "asset",
+      "installBytes": 253000,
+      "downloadBytes": 240000,
+      "rendition": {
+        "name": "illustration",
+        "scale": 2,
+        "idiom": "universal",
+        "kind": "Image"
+      }
+    },
+    {
+      "id": "Assets.car#illustration/3x/universal/",
+      "path": "Assets.car",
+      "category": "asset",
+      "installBytes": 505000,
+      "downloadBytes": 480000,
+      "rendition": {
+        "name": "illustration",
+        "scale": 3,
+        "idiom": "universal",
+        "kind": "Image"
+      }
+    },
+    {
+      "id": "Assets.car#illustration//universal/",
+      "path": "Assets.car",
+      "category": "asset",
+      "installBytes": 1200000,
+      "downloadBytes": 1140000,
+      "rendition": {
+        "name": "illustration",
+        "idiom": "universal",
+        "kind": "Vector"
+      }
+    }
+  ],
+  "pins": {
+    "lottie-ios": "4.3.0",
+    "Alamofire": "5.8.0"
+  },
+  "pinLocations": {
+    "lottie-ios": {
+      "file": "Package.resolved",
+      "line": 7,
+      "source": "spm"
+    },
+    "Alamofire": {
+      "file": "Package.resolved",
+      "line": 14,
+      "source": "spm"
+    }
+  },
+  "capabilities": {
+    "assetutil": true,
+    "thinningReport": true,
+    "zipSizes": false,
+    "lockfiles": true
+  }
+}

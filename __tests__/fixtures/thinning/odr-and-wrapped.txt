@@ -1,0 +1,9 @@
+App Thinning Size Report for All Variants of MyApp
+
+Variant: MyApp-7433FC8E.ipa
+Supported variant descriptors: [device: iPhone12,1, os-version: 13.0] and
+[device: iPhone11,8, os-version: 13.0] and
+[device: iPhone14,5, os-version: 15.0]
+App + On Demand Resources size: 30.2 MB compressed, 60.4 MB uncompressed
+App size: 21.4 MB compressed, 48.2 MB uncompressed
+On Demand Resources size: 8.8 MB compressed, 12.2 MB uncompressed
