@@ -1,0 +1,7 @@
+App Thinning Size Report for All Variants of MyApp
+
+Variant: MyApp-ABC.ipa
+Supported variant descriptors: [device: iPhone16,2, os-version: 18.0]
+App + On Demand Resources size: 21.4 MB compressed, 48.2 MB uncompressed
+App size: 21.4 MB compressed, 48.2 MB uncompressed
+On Demand Resources size: Zero KB compressed, Zero KB uncompressed

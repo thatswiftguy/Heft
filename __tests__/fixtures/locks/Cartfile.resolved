@@ -1,0 +1,3 @@
+github "Alamofire/Alamofire" "5.8.0"
+github "SDWebImage/SDWebImage" "5.18.7"
+binary "https://example.com/Vendor.json" "2.1.0"

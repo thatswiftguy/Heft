@@ -1,0 +1,107 @@
+name: Self-check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  # Runs the real bundled action against generated fixtures, so the shipped
+  # dist/ is exercised in a real runner rather than only through vitest.
+  self-check:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+
+      - name: Build fixtures
+        run: |
+          node scripts/make-fixture-archive.mjs "$RUNNER_TEMP/base" base
+          node scripts/make-fixture-archive.mjs "$RUNNER_TEMP/head" head
+
+      # Record the base fixture as a baseline, keyed by a fixed sha so the
+      # walk-back finds it deterministically.
+      - name: Record baseline
+        run: |
+          mkdir -p "$RUNNER_TEMP/baselines"
+          node dist/index.js
+        env:
+          INPUT_ARCHIVE: ${{ runner.temp }}/base/MyApp.xcarchive
+          INPUT_THINNING-REPORT: ${{ runner.temp }}/base/App Thinning Size Report.txt
+          INPUT_LOCKFILES: ${{ runner.temp }}/base/Package.resolved
+          INPUT_MANIFEST-OUT: ${{ runner.temp }}/baselines/${{ github.sha }}.json
+          INPUT_COMMENT: 'false'
+          INPUT_ANNOTATIONS: 'false'
+
+      - name: Clean run — head against itself must pass
+        run: node dist/index.js
+        env:
+          INPUT_ARCHIVE: ${{ runner.temp }}/base/MyApp.xcarchive
+          INPUT_THINNING-REPORT: ${{ runner.temp }}/base/App Thinning Size Report.txt
+          INPUT_LOCKFILES: ${{ runner.temp }}/base/Package.resolved
+          INPUT_BASE-REF: ${{ github.sha }}
+          INPUT_BASELINE-DIRECTORY: ${{ runner.temp }}/baselines
+          INPUT_COMMENT: 'false'
+
+      - name: Regressing run — must fail, and name the dependency
+        run: |
+          set +e
+          node dist/index.js > out.txt 2>&1
+          status=$?
+          set -e
+          cat out.txt
+          if [ "$status" -eq 0 ]; then
+            echo "::error::expected a non-zero exit for a build over budget"
+            exit 1
+          fi
+          grep -q 'dependency `4.3.0 → 4.4.1`' out.txt || {
+            echo "::error::report did not name the dependency bump as the cause"
+            exit 1
+          }
+          grep -q 'Onboarding.json' out.txt || {
+            echo "::error::report did not name the new resource"
+            exit 1
+          }
+          # A dSYM leaking into the measurement would dwarf everything else.
+          if grep -q 'dSYM' out.txt; then
+            echo "::error::dSYMs must never appear in the report"
+            exit 1
+          fi
+        env:
+          INPUT_ARCHIVE: ${{ runner.temp }}/head/MyApp.xcarchive
+          INPUT_THINNING-REPORT: ${{ runner.temp }}/head/App Thinning Size Report.txt
+          INPUT_LOCKFILES: ${{ runner.temp }}/head/Package.resolved
+          INPUT_BASE-REF: ${{ github.sha }}
+          INPUT_BASELINE-DIRECTORY: ${{ runner.temp }}/baselines
+          INPUT_COMMENT: 'false'
+          INPUT_ANNOTATIONS: 'false'
+
+      - name: Missing artifact — must exit 2, not crash
+        run: |
+          set +e
+          node dist/index.js > out.txt 2>&1
+          status=$?
+          set -e
+          cat out.txt
+          if [ "$status" -ne 2 ]; then
+            echo "::error::expected exit 2 for a misconfigured run, got $status"
+            exit 1
+          fi
+        env:
+          INPUT_ARCHIVE: ${{ runner.temp }}/nope.xcarchive
+          INPUT_COMMENT: 'false'

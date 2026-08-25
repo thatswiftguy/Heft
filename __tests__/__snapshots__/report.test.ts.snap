@@ -1,0 +1,136 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`renderComment > renders a clean run 1`] = `
+"### ⚖️ heft — **passed**
+
+No change in download size vs \`main\`.
+
+|  | Before | After | Δ |
+|---|---|---|---|
+| **Download** | 4.1 MB | 4.1 MB | — (±0%) |
+| **Install** | 7.9 MB | 7.9 MB | — (±0%) |
+
+<sub>variant \`MyApp-iPhone16,2\` · baseline \`aaaaaaa\` (merge base) · download bytes apportioned from Xcode's reported total · <!-- heft --></sub>"
+`;
+
+exports[`renderComment > renders a dependency-driven regression 1`] = `
+"### ⚖️ heft — **failed**
+
+Download size **+263 KB** (+6.4%) vs \`main\` — mostly **lottie-ios 4.3.0 → 4.4.1**.
+
+|  | Before | After | Δ |
+|---|---|---|---|
+| **Download** | 4.1 MB | 4.3 MB | 🔺 +263 KB (+6.4%) |
+| **Install** | 7.9 MB | 8.3 MB | 🔺 +455 KB (+5.8%) |
+
+Budget: **+263 KB** against **+100 KB** allowed for one change — over by **163 KB**.
+
+| What | Why | Δ download |
+|---|---|---|
+| \`Lottie.framework\` | dependency \`4.3.0 → 4.4.1\` | 🔺 +184 KB |
+| \`onboarding-hero @3x\` | new asset | 🔺 +96 KB |
+| \`Onboarding.json\` | new resource | 🔺 +21 KB |
+| \`Alamofire.framework\` | rebuilt, same version | 🔻 −41 KB |
+| 1 change | below the 8 KB noise floor | 🔺 +3 KB |
+
+<sub>variant \`MyApp-iPhone16,2\` · baseline \`aaaaaaa\` (merge base) · download bytes apportioned from Xcode's reported total · <!-- heft --></sub>"
+`;
+
+exports[`renderComment > renders a first run with no baseline 1`] = `
+"### ⚖️ heft — **baseline recorded**
+
+Download size **4.3 MB**. No baseline to compare against yet.
+
+|  | Size |
+|---|---|
+| **Download** | 4.3 MB |
+| **Install** | 8.3 MB |
+
+<sub>variant \`MyApp-iPhone16,2\` · download bytes apportioned from Xcode's reported total · <!-- heft --></sub>"
+`;
+
+exports[`renderComment > renders a pure improvement 1`] = `
+"### ⚖️ heft — **passed**
+
+Download size **−285 KB** (−7.0%) vs \`main\`.
+
+|  | Before | After | Δ |
+|---|---|---|---|
+| **Download** | 4.1 MB | 3.8 MB | 🔻 −285 KB (−7.0%) |
+| **Install** | 7.9 MB | 7.6 MB | 🔻 −300 KB (−3.8%) |
+
+| What | Why | Δ download |
+|---|---|---|
+| \`hero @3x\` | asset removed | 🔻 −285 KB |
+
+<sub>variant \`MyApp-iPhone16,2\` · baseline \`aaaaaaa\` (merge base) · download bytes apportioned from Xcode's reported total · <!-- heft --></sub>"
+`;
+
+exports[`renderComment > renders a toolchain mismatch as reporting-only 1`] = `
+"### ⚖️ heft — **passed**
+
+Download size **+263 KB** (+6.4%) vs \`main\` — mostly **lottie-ios 4.3.0 → 4.4.1**.
+
+|  | Before | After | Δ |
+|---|---|---|---|
+| **Download** | 4.1 MB | 4.3 MB | 🔺 +263 KB (+6.4%) |
+| **Install** | 7.9 MB | 8.3 MB | 🔺 +455 KB (+5.8%) |
+
+Budget: **+263 KB** against **+100 KB** allowed for one change — over by **163 KB**.
+
+| What | Why | Δ download |
+|---|---|---|
+| \`Lottie.framework\` | dependency \`4.3.0 → 4.4.1\` | 🔺 +184 KB |
+| \`onboarding-hero @3x\` | new asset | 🔺 +96 KB |
+| \`Onboarding.json\` | new resource | 🔺 +21 KB |
+| \`Alamofire.framework\` | rebuilt, same version | 🔻 −41 KB |
+| 1 change | below the 8 KB noise floor | 🔺 +3 KB |
+
+> [!NOTE]
+> the two builds used different toolchains (Xcode build \`16C5032a\` → \`17F113\`). A toolchain change moves size on its own, so this difference is reported but not gated on.
+
+<sub>variant \`MyApp-iPhone16,2\` · baseline \`aaaaaaa\` (merge base) · download bytes apportioned from Xcode's reported total · **reporting only, not gating** · <!-- heft --></sub>"
+`;
+
+exports[`renderSummary > renders the full report for a fork, where no comment can be posted 1`] = `
+"## ⚖️ heft — failed
+
+Download size **+263 KB** (+6.4%) vs \`main\` — mostly **lottie-ios 4.3.0 → 4.4.1**.
+
+|  | Before | After | Δ |
+|---|---|---|---|
+| **Download** | 4.1 MB | 4.3 MB | 🔺 +263 KB (+6.4%) |
+| **Install** | 7.9 MB | 8.3 MB | 🔺 +455 KB (+5.8%) |
+
+Budget: **+263 KB** against **+100 KB** allowed for one change — over by **163 KB**.
+
+### What changed
+
+| What | Why | Δ download |
+|---|---|---|
+| \`Lottie.framework\` | dependency \`4.3.0 → 4.4.1\` | 🔺 +184 KB |
+| \`onboarding-hero @3x\` | new asset | 🔺 +96 KB |
+| \`Onboarding.json\` | new resource | 🔺 +21 KB |
+| \`Alamofire.framework\` | rebuilt, same version | 🔻 −41 KB |
+| 1 change | below the 8 KB noise floor | 🔺 +3 KB |
+
+### What shrank
+
+| What | Why | Δ download |
+|---|---|---|
+| \`Alamofire.framework\` | rebuilt, same version | 🔻 −41 KB |
+
+<details><summary>Every change</summary>
+
+| What | Why | Before | After | Δ download | Δ install |
+|---|---|---|---|---|---|
+| \`Lottie.framework\` | dependency \`4.3.0 → 4.4.1\` | 1 MB | 1.2 MB | 🔺 +184 KB | 🔺 +360 KB |
+| \`onboarding-hero @3x\` | new asset | — | 96 KB | 🔺 +96 KB | 🔺 +101 KB |
+| \`Onboarding.json\` | new resource | — | 21 KB | 🔺 +21 KB | 🔺 +70 KB |
+| \`MyApp\` | app binary | 2 MB | 2 MB | 🔺 +3 KB | 🔺 +6 KB |
+| \`Alamofire.framework\` | rebuilt, same version | 750 KB | 709 KB | 🔻 −41 KB | 🔻 −82 KB |
+
+</details>
+
+<sub>variant \`MyApp-iPhone16,2\` · baseline \`aaaaaaa\` (merge base) · download bytes apportioned from Xcode's reported total</sub>"
+`;

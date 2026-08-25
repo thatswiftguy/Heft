@@ -1,0 +1,138 @@
+{
+  "version": 1,
+  "commit": "bbbbbbb",
+  "fingerprint": {
+    "xcodeBuild": "17F113",
+    "sdk": "iphoneos18.2",
+    "deploymentTarget": "17.0",
+    "architectures": [
+      "arm64"
+    ]
+  },
+  "variants": [
+    {
+      "name": "MyApp-iPhone16,2",
+      "downloadBytes": 21400000,
+      "installBytes": 48200000
+    }
+  ],
+  "referenceVariant": "MyApp-iPhone16,2",
+  "entries": [
+    {
+      "id": "MyApp",
+      "path": "MyApp",
+      "category": "executable",
+      "installBytes": 4006000,
+      "downloadBytes": 2003000
+    },
+    {
+      "id": "Frameworks/Lottie.framework/Lottie",
+      "path": "Frameworks/Lottie.framework/Lottie",
+      "category": "framework",
+      "installBytes": 2360000,
+      "downloadBytes": 1184000,
+      "dependency": "lottie-ios"
+    },
+    {
+      "id": "Frameworks/Lottie.framework/Info.plist",
+      "path": "Frameworks/Lottie.framework/Info.plist",
+      "category": "framework",
+      "installBytes": 4000,
+      "downloadBytes": 1200,
+      "dependency": "lottie-ios"
+    },
+    {
+      "id": "Frameworks/Alamofire.framework/Alamofire",
+      "path": "Frameworks/Alamofire.framework/Alamofire",
+      "category": "framework",
+      "installBytes": 1418000,
+      "downloadBytes": 709000,
+      "dependency": "Alamofire"
+    },
+    {
+      "id": "Assets.car#hero/3x/universal/",
+      "path": "Assets.car",
+      "category": "asset",
+      "installBytes": 300000,
+      "downloadBytes": 285000,
+      "rendition": {
+        "name": "hero",
+        "scale": 3,
+        "idiom": "universal",
+        "kind": "Image"
+      }
+    },
+    {
+      "id": "Assets.car#icon/2x/universal/",
+      "path": "Assets.car",
+      "category": "asset",
+      "installBytes": 20000,
+      "downloadBytes": 19000,
+      "rendition": {
+        "name": "icon",
+        "scale": 2,
+        "idiom": "universal",
+        "kind": "Image"
+      }
+    },
+    {
+      "id": "Assets.car#(catalog overhead)",
+      "path": "Assets.car",
+      "category": "asset",
+      "installBytes": 25000,
+      "downloadBytes": 23750,
+      "rendition": {
+        "name": "(catalog overhead)"
+      }
+    },
+    {
+      "id": "FeatureFlags.json",
+      "path": "FeatureFlags.json",
+      "category": "resource",
+      "installBytes": 10000,
+      "downloadBytes": 3000
+    },
+    {
+      "id": "Assets.car#onboarding-hero/3x/universal/",
+      "path": "Assets.car",
+      "category": "asset",
+      "installBytes": 101000,
+      "downloadBytes": 96000,
+      "rendition": {
+        "name": "onboarding-hero",
+        "scale": 3,
+        "idiom": "universal",
+        "kind": "Image"
+      }
+    },
+    {
+      "id": "Onboarding.json",
+      "path": "Onboarding.json",
+      "category": "resource",
+      "installBytes": 70000,
+      "downloadBytes": 21000
+    }
+  ],
+  "pins": {
+    "lottie-ios": "4.4.1",
+    "Alamofire": "5.8.0"
+  },
+  "pinLocations": {
+    "lottie-ios": {
+      "file": "Package.resolved",
+      "line": 7,
+      "source": "spm"
+    },
+    "Alamofire": {
+      "file": "Package.resolved",
+      "line": 14,
+      "source": "spm"
+    }
+  },
+  "capabilities": {
+    "assetutil": true,
+    "thinningReport": true,
+    "zipSizes": false,
+    "lockfiles": true
+  }
+}
