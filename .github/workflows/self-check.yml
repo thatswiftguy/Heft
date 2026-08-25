@@ -41,6 +41,7 @@ jobs:
           mkdir -p "$RUNNER_TEMP/baselines"
           node dist/index.js
         env:
+          GITHUB_STEP_SUMMARY: ${{ runner.temp }}/baseline-summary.md
           INPUT_ARCHIVE: ${{ runner.temp }}/base/MyApp.xcarchive
           INPUT_THINNING-REPORT: ${{ runner.temp }}/base/App Thinning Size Report.txt
           INPUT_LOCKFILES: ${{ runner.temp }}/base/Package.resolved
@@ -48,8 +49,18 @@ jobs:
           INPUT_COMMENT: 'false'
           INPUT_ANNOTATIONS: 'false'
 
-      - name: Clean run — head against itself must pass
-        run: node dist/index.js
+      - name: Clean run — the base against its own baseline must pass
+        run: |
+          summary="$RUNNER_TEMP/clean-summary.md"
+          : > "$summary"
+          GITHUB_STEP_SUMMARY="$summary" node dist/index.js
+          cat "$summary"
+          # Guard against a false pass: without a baseline this reports a first
+          # run and trivially succeeds, which would make the check meaningless.
+          grep -q 'baseline' "$summary" \
+            || { echo "::error::no baseline was found, so this proved nothing"; exit 1; }
+          grep -q 'No change in download size' "$summary" \
+            || { echo "::error::comparing a build against itself should report no change"; exit 1; }
         env:
           INPUT_ARCHIVE: ${{ runner.temp }}/base/MyApp.xcarchive
           INPUT_THINNING-REPORT: ${{ runner.temp }}/base/App Thinning Size Report.txt
@@ -58,30 +69,35 @@ jobs:
           INPUT_BASELINE-DIRECTORY: ${{ runner.temp }}/baselines
           INPUT_COMMENT: 'false'
 
-      - name: Regressing run — must fail, and name the dependency
+      - name: Regressing run — must fail, and name the causes
         run: |
+          # Assert against the job summary, not stdout. The report reaches the
+          # summary and the `report` output; stdout carries only log lines. An
+          # earlier version of this check grepped stdout and passed locally only
+          # because, with GITHUB_OUTPUT unset, @actions/core falls back to the
+          # deprecated ::set-output command and the report leaked there.
+          summary="$RUNNER_TEMP/regress-summary.md"
+          : > "$summary"
           set +e
-          node dist/index.js > out.txt 2>&1
-          status=$?
+          GITHUB_STEP_SUMMARY="$summary" node dist/index.js > out.txt 2>&1
+          rc=$?
           set -e
-          cat out.txt
-          if [ "$status" -eq 0 ]; then
-            echo "::error::expected a non-zero exit for a build over budget"
-            exit 1
-          fi
-          grep -q 'dependency `4.3.0 → 4.4.1`' out.txt || {
-            echo "::error::report did not name the dependency bump as the cause"
-            exit 1
-          }
-          grep -q 'Onboarding.json' out.txt || {
-            echo "::error::report did not name the new resource"
-            exit 1
-          }
-          # A dSYM leaking into the measurement would dwarf everything else.
-          if grep -q 'dSYM' out.txt; then
-            echo "::error::dSYMs must never appear in the report"
-            exit 1
-          fi
+          echo "--- stdout ---"; cat out.txt
+          echo "--- job summary ---"; cat "$summary"
+
+          fail() { echo "::error::$1"; exit 1; }
+
+          [ "$rc" -eq 1 ] || fail "expected exit 1 for a build over budget, got $rc"
+          [ -s "$summary" ] || fail "no job summary was written"
+
+          grep -q 'dependency `4.3.0 → 4.4.1`' "$summary" \
+            || fail "the report did not name the dependency bump as the cause"
+          grep -q 'Onboarding.json' "$summary" \
+            || fail "the report did not name the new resource"
+          grep -q 'Budget' "$summary" \
+            || fail "the report did not frame the gate as a budget"
+          # A dSYM leaking in would dwarf every real contributor.
+          ! grep -q 'dSYM' "$summary" || fail "dSYMs must never appear in the report"
         env:
           INPUT_ARCHIVE: ${{ runner.temp }}/head/MyApp.xcarchive
           INPUT_THINNING-REPORT: ${{ runner.temp }}/head/App Thinning Size Report.txt
@@ -95,11 +111,11 @@ jobs:
         run: |
           set +e
           node dist/index.js > out.txt 2>&1
-          status=$?
+          rc=$?
           set -e
           cat out.txt
-          if [ "$status" -ne 2 ]; then
-            echo "::error::expected exit 2 for a misconfigured run, got $status"
+          if [ "$rc" -ne 2 ]; then
+            echo "::error::expected exit 2 for a misconfigured run, got $rc"
             exit 1
           fi
         env:
